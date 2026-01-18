@@ -215,7 +215,7 @@ function setDefaultQueryFromUrl() {
 }
 function updateTitleFromInput() {
     const text = document.getElementById('queryInput').value.trim();
-    document.title = 'aInfo: ' + (text ? text : '');
+    document.title = 'aInfo' + (text ? ': ' + text : '');
 }
 /* ===============================
    SEARCH LOGIC
