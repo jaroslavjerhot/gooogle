@@ -124,7 +124,7 @@
    CONFIG
 ================================ */
 const COUNTRY_CONFIG = {
-    CZ: { lang: 'cs', gl: 'CZ' },
+    //CZ: { lang: 'cs', gl: 'CZ' },
     SK: { lang: 'sk', gl: 'SK' },
     UA: { lang: 'uk', gl: 'UA' },
     US: { lang: 'en', gl: 'US' },
@@ -213,6 +213,7 @@ function setDefaultQueryFromUrl() {
     const q = params.get('q')
     q = q ? decodeURIComponent(q) : 'Česko'
     document.getElementById('queryInput').value = q 
+    alert(q)
 }
 function updateTitleFromInput() {
     const text = document.getElementById('queryInput').value.trim() ;
@@ -255,8 +256,11 @@ function openGoogleSearch(queryText) {
     if(range.end) tbs += ',cd_max:' + range.end
 
     if(document.getElementById('excludeSocial').checked) {
-        query += ' -site:facebook.com -site:instagram.com -site:youtube.com -site:x.com -site:wikipedia.org'
+        query += ' -site:facebook.com -site:instagram.com -site:youtube.com -site:x.com -site:wikipedia.org -site:reddit.com'
     }
+    query += ' -site:.cz'
+    
+    
 
     const cfg = COUNTRY_CONFIG[selectedCountry]
     const url = 'https://www.google.com/search?q=' + encodeURIComponent(query) +
