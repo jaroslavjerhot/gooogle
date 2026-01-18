@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='cs'>
+<html lang='en'>
 <head>
     <meta charset='UTF-8'>
     <title>One: Google simplified by hundred zeros</title>
@@ -10,9 +10,6 @@
             background-color: #0f0f0f;
             color: #ffffff; /* white text */
             padding-bottom: env(safe-area-inset-bottom);
-        }
-        h1, h2, h3, h4, h5, h6, strong, label {
-            color: #ffffff !important;
         }
         .card {
             background-color: #1a1a1a;
@@ -133,12 +130,10 @@ const COUNTRY_CONFIG = {
 }
 
 const currentYear = new Date().getFullYear()
-const previousYear = currentYear - 1;
 const YEAR_RANGES = [
     {label: '<2015', start: null, end: 2015},
     {label: '2015-2020', start: 2015, end: 2020},
-    {label: '2020-' + previousYear, start: 2020, end: previousYear}
-    {label: currentYear, start: currentYear, end: currentYear}
+    {label: '2020-' + currentYear, start: 2020, end: currentYear}
 ]
 
 let selectedCountry = localStorage.getItem('lastCountry') || 'CZ'
