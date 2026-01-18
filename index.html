@@ -149,9 +149,10 @@ let selectedYearRangeIndex = localStorage.getItem('lastYearIndex') ? Number(loca
    INIT
 ================================ */
 document.addEventListener('DOMContentLoaded', () => {
-    createCountryButtons()
-    createYearButtons()
-    setDefaultQueryFromUrl()
+    createCountryButtons();
+    createYearButtons();
+    setDefaultQueryFromUrl();
+    updateTitleFromInput(); // <-- set title immediately on load
 })
 
 /* ===============================
