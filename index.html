@@ -81,7 +81,7 @@
 
                     <!-- INPUT -->
                     <div class='mb-3'>
-                        <input id='queryInput' type='text' class='form-control form-control-lg' placeholder='Enter search text...'>
+                        <input id='queryInput' type='text' class='form-control form-control-lg' placeholder='Enter search text...' value='Cesko'>
                     </div>
 
                     <!-- COUNTRIES -->
@@ -215,7 +215,7 @@ function setDefaultQueryFromUrl() {
 }
 function updateTitleFromInput() {
     const text = document.getElementById('queryInput').value.trim() ;
-    document.title = 'aInfo' + (text ? ': ' + text : 'Česko');
+    document.title = 'aInfo' + (text ? ': ' + text : '');
 }
 /* ===============================
    SEARCH LOGIC
