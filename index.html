@@ -2,9 +2,9 @@
 <html lang='en'>
 <head>
     <meta charset='UTF-8'>
-    <title>Oogle</title>
+    <title>One: Google simplified by hundred zeros</title>
 
-    <!-- iOS / Android viewport -->
+    <!-- Mobile -->
     <meta name='viewport'
           content='width=device-width, initial-scale=1, viewport-fit=cover'>
 
@@ -13,28 +13,69 @@
 
     <style>
         body {
-            background: #f8f9fa;
+            background-color: #0f0f0f;
+            color: #eaeaea;
             padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .card {
+            background-color: #1a1a1a;
+            border: none;
+        }
+
+        .form-control {
+            background-color: #121212;
+            color: #ffffff;
+            border: 1px solid #333;
+        }
+
+        .form-control:focus {
+            background-color: #121212;
+            color: #ffffff;
+            border-color: #0d6efd;
+            box-shadow: none;
         }
 
         .btn {
             min-height: 44px;
         }
 
+        .btn-outline-primary,
+        .btn-outline-secondary {
+            color: #ccc;
+            border-color: #444;
+        }
+
+        .btn-outline-primary:hover,
+        .btn-outline-secondary:hover {
+            background-color: #333;
+            border-color: #666;
+        }
+
         .btn-country.active,
         .btn-year.active {
             background-color: #0d6efd;
+            border-color: #0d6efd;
             color: #fff;
         }
 
-        /* Mobile sticky search button */
+        .form-check-input {
+            background-color: #222;
+            border-color: #555;
+        }
+
+        .form-check-input:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
         @media (max-width: 768px) {
             .mobile-search {
                 position: sticky;
                 bottom: 0;
-                background: white;
+                background-color: #111;
                 padding: 12px;
-                box-shadow: 0 -2px 10px rgba(0,0,0,.1);
+                box-shadow: 0 -2px 12px rgba(0,0,0,.6);
                 z-index: 1000;
             }
         }
@@ -49,34 +90,23 @@
             <div class='card shadow-sm'>
                 <div class='card-body'>
 
-                    <h4 class='mb-3'>Ooogle: Google simplified</h4>
+                    <h3 class='mb-4 text-center'>
+                        One: Google simplified by hundred zeros
+                    </h3>
 
-                    <!-- TEXT INPUT -->
+                    <!-- INPUT -->
                     <div class='mb-3'>
                         <input id='queryInput'
                                type='text'
-                               value='inflace'
                                class='form-control form-control-lg'
-                               placeholder='Enter text to search...'>
+                               placeholder='Enter search text...'>
                     </div>
 
-                    <!-- COUNTRY -->
+                    <!-- COUNTRIES -->
                     <div class='mb-3'>
                         <strong>Country</strong>
-                        <div class='d-flex flex-wrap gap-2 mt-2'>
-                            <button class='btn btn-outline-primary btn-country active'
-                                    onclick='setCountry(this, "CZ", "cs")'>CZ</button>
-                            <button class='btn btn-outline-primary btn-country'
-                                    onclick='setCountry(this, "SK", "sk")'>SK</button>
-                            <button class='btn btn-outline-primary btn-country'
-                                    onclick='setCountry(this, "UA", "uk")'>UA</button>
-                            <button class='btn btn-outline-primary btn-country'
-                                    onclick='setCountry(this, "US", "en")'>US</button>
-                            <button class='btn btn-outline-primary btn-country'
-                                    onclick='setCountry(this, "DE", "de")'>DE</button>
-                            <button class='btn btn-outline-primary btn-country'
-                                    onclick='setCountry(this, "AT", "de")'>AT</button>
-                        </div>
+                        <div id='countryButtons'
+                             class='d-flex flex-wrap gap-2 mt-2'></div>
                     </div>
 
                     <!-- YEAR -->
@@ -94,7 +124,10 @@
 
                     <!-- EXCLUDE -->
                     <div class='form-check form-switch mb-4'>
-                        <input class='form-check-input' type='checkbox' id='excludeSocial'>
+                        <input class='form-check-input'
+                               type='checkbox'
+                               id='excludeSocial'
+                               checked>
                         <label class='form-check-label' for='excludeSocial'>
                             Exclude social media
                         </label>
@@ -103,16 +136,18 @@
                 </div>
             </div>
 
-            <!-- Mobile sticky button -->
+            <!-- MOBILE SEARCH -->
             <div class='mobile-search d-md-none'>
-                <button class='btn btn-success w-100 btn-lg' onclick='runSearch()'>
+                <button class='btn btn-success w-100 btn-lg'
+                        onclick='runSearch()'>
                     Search
                 </button>
             </div>
 
-            <!-- Desktop button -->
+            <!-- DESKTOP SEARCH -->
             <div class='text-end mt-3 d-none d-md-block'>
-                <button class='btn btn-success btn-lg' onclick='runSearch()'>
+                <button class='btn btn-success btn-lg'
+                        onclick='runSearch()'>
                     Search
                 </button>
             </div>
@@ -122,50 +157,101 @@
 </div>
 
 <script>
-let targetLang = 'cs'
+/* ===============================
+   CONFIG
+================================ */
+
+const COUNTRY_CONFIG = {
+    CZ: { lang: 'cs', gl: 'CZ' },
+    SK: { lang: 'sk', gl: 'SK' },
+    UA: { lang: 'uk', gl: 'UA' },
+    US: { lang: 'en', gl: 'US' },
+    DE: { lang: 'de', gl: 'DE' },
+    AT: { lang: 'de', gl: 'AT' }
+}
+
+let selectedCountry = 'CZ'
 let yearLimit = 2026
 
-function setCountry(btn, country, lang) {
-    document.querySelectorAll('.btn-country').forEach(b => b.classList.remove('active'))
+/* ===============================
+   INIT
+================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    createCountryButtons()
+    document.getElementById('queryInput').value = 'ukrajina volby'
+})
+
+/* ===============================
+   UI
+================================ */
+
+function createCountryButtons() {
+    const container = document.getElementById('countryButtons')
+
+    Object.keys(COUNTRY_CONFIG).forEach(code => {
+        const btn = document.createElement('button')
+        btn.className = 'btn btn-outline-primary btn-country'
+        btn.innerText = code
+
+        if (code === selectedCountry) {
+            btn.classList.add('active')
+        }
+
+        btn.onclick = () => setCountry(btn, code)
+        container.appendChild(btn)
+    })
+}
+
+function setCountry(btn, country) {
+    document.querySelectorAll('.btn-country')
+        .forEach(b => b.classList.remove('active'))
+
     btn.classList.add('active')
-    targetLang = lang
+    selectedCountry = country
     runSearch()
 }
 
 function setYear(btn, year) {
-    document.querySelectorAll('.btn-year').forEach(b => b.classList.remove('active'))
+    document.querySelectorAll('.btn-year')
+        .forEach(b => b.classList.remove('active'))
+
     btn.classList.add('active')
     yearLimit = year
     runSearch()
 }
 
+/* ===============================
+   SEARCH
+================================ */
+
 async function runSearch() {
-    const input = document.getElementById('queryInput')
-    const text = input.value.trim()
+    const text = document.getElementById('queryInput').value.trim()
     if (!text) return
 
+    const lang = COUNTRY_CONFIG[selectedCountry].lang
+
     try {
-        const translated = await translateText(text, targetLang)
+        const translated = await translateText(text, lang)
         openGoogleSearch(translated)
-    } catch (e) {
-        // fallback → original text
+    } catch {
         openGoogleSearch(text)
     }
 }
 
 async function translateText(text, lang) {
-    if (lang === 'cs') return text   // default = no translation
+    if (lang === 'cs') return text
 
     const url =
         'https://api.mymemory.translated.net/get' +
         '?q=' + encodeURIComponent(text) +
-        '&langpair=cs|' + lang
+        '&langpair=auto|' + lang
 
     const response = await fetch(url)
     const data = await response.json()
 
-    if (!data.responseData || !data.responseData.translatedText) {
-        throw 'Translation failed'
+    if (!data.responseData?.translatedText) {
+        throw new Error('Translation failed')
     }
 
     return data.responseData.translatedText
@@ -183,14 +269,19 @@ function openGoogleSearch(queryText) {
             ' -site:x.com'
     }
 
-    const url =
-        'https://www.google.com/search?q=' +
-        encodeURIComponent(query)
+    const cfg = COUNTRY_CONFIG[selectedCountry]
+    const tbs = 'cdr:1,cd_max:' + yearLimit
 
-    window.open(url, '_blank');
+    const url =
+        'https://www.google.com/search' +
+        '?q=' + encodeURIComponent(query) +
+        '&hl=' + cfg.lang +
+        '&gl=' + cfg.gl +
+        '&tbs=' + encodeURIComponent(tbs)
+
+    window.open(url, '_blank')
 }
 </script>
-
 
 </body>
 </html>
