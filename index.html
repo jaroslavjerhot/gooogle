@@ -135,13 +135,16 @@ const COUNTRY_CONFIG = {
 }
 
 const currentYear = new Date().getFullYear()
+const previousYear = currentYear - 1;
 const YEAR_RANGES = [
-    { label: '<2009', start: null, end: 2009 },
-    { label: '2010-2014', start: 2010, end: 2014 },
-    { label: '2015-2018', start: 2015, end: 2018 },
-    { label: '2019-2021', start: 2019, end: 2021 },
-    { label: '2022-' + (currentYear-1), start: 2022, end: currentYear - 1 },
-    { label: String(currentYear), start: currentYear, end: currentYear }
+    { label: '<2009', start: null, end: 2009, tbs: 'cdr:1,cd_max:12/31/2008' },
+    { label: '2010-2014', start: 2010, end: 2014, : 'cdr:1,cd_min:1/1/2010,cd_max:12/31/2014' },
+    { label: '2015-2018', start: 2015, end: 2018, tbs: 'cdr:1,cd_min:1/1/2010,cd_max:12/31/2014' },
+    { label: '2019-2021', start: 2019, end: 2021, tbs: 'cdr:1,cd_min:1/1/2019,cd_max:12/31/2021' },
+    { label: '2022-' + (previousYear), start: 2022, end: previousYear, tbs: `cdr:1,cd_min:1/1/2022,cd_max:12/31/${previousYear}`},
+    { label: String(currentYear), start: currentYear, end: currentYear, tbs: `cdr:1,cd_min:1/1/${CURRENT_YEAR},cd_max:12/31/${CURRENT_YEAR}` },
+    { label: 'last week', start: currentYear, end: currentYear, tbs: 'qdr:w' },
+    { label: 'last 24h', start: currentYear, end: currentYear, tbs: 'qdr:d' },
 ];
 
 let selectedCountry = localStorage.getItem('lastCountry') || 'CZ'
@@ -249,9 +252,10 @@ function openGoogleSearch(queryText) {
     let query = queryText
 
     const range = YEAR_RANGES[selectedYearRangeIndex]
-    let tbs = 'cdr:1'
-    if(range.start) tbs += ',cd_min:' + range.start
-    if(range.end) tbs += ',cd_max:' + range.end
+    //let tbs = 'cdr:1'
+    //if(range.start) tbs += ',cd_min:' + range.start
+    //if(range.end) tbs += ',cd_max:' + range.end
+    let tbs = range.tbs
 
     if(document.getElementById('excludeSocial').checked) {
         query += ' -site:facebook.com -site:instagram.com -site:youtube.com -site:x.com -site:wikipedia.org -site:reddit.com'
