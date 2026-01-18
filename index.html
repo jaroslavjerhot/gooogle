@@ -228,7 +228,7 @@ async function runSearch() {
 
 async function translateText(text, lang) {
     if(lang === 'cs') return text
-    const url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=auto|' + lang
+    const url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=cs|' + lang
     const response = await fetch(url)
     const data = await response.json()
     if(!data.responseData?.translatedText) throw new Error('Translation failed')
@@ -244,7 +244,7 @@ function openGoogleSearch(queryText) {
     if(range.end) tbs += ',cd_max:' + range.end
 
     if(document.getElementById('excludeSocial').checked) {
-        query += ' -site:facebook.com -site:instagram.com -site:tiktok.com -site:twitter.com -site:x.com'
+        query += ' -site:facebook.com -site:instagram.com -site:youtube.com -site:x.com'
     }
 
     const cfg = COUNTRY_CONFIG[selectedCountry]
