@@ -3,70 +3,59 @@
 <head>
     <meta charset='UTF-8'>
     <title>One: Google simplified by hundred zeros</title>
-
-    <meta name='viewport'
-          content='width=device-width, initial-scale=1, viewport-fit=cover'>
-
+    <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover'>
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet'>
-
     <style>
         body {
             background-color: #0f0f0f;
-            color: #eaeaea;
+            color: #ffffff; /* white text */
             padding-bottom: env(safe-area-inset-bottom);
         }
-
         .card {
             background-color: #1a1a1a;
             border: none;
         }
-
         .form-control {
             background-color: #121212;
-            color: #fff;
+            color: #ffffff;
             border: 1px solid #333;
         }
-
         .form-control:focus {
             background-color: #121212;
-            color: #fff;
+            color: #ffffff;
             border-color: #0d6efd;
             box-shadow: none;
         }
-
         .btn {
             min-height: 44px;
         }
-
         .btn-outline-primary,
         .btn-outline-secondary {
-            color: #ccc;
-            border-color: #444;
+            color: #ffffff;
+            border-color: #555;
         }
-
         .btn-outline-primary:hover,
         .btn-outline-secondary:hover {
             background-color: #333;
             border-color: #666;
         }
-
         .btn-country.active,
         .btn-year.active {
             background-color: #0d6efd;
             border-color: #0d6efd;
-            color: #fff;
+            color: #ffffff;
         }
-
         .form-check-input {
             background-color: #222;
             border-color: #555;
         }
-
         .form-check-input:checked {
             background-color: #0d6efd;
             border-color: #0d6efd;
         }
-
+        .form-check-label {
+            color: #ffffff; /* captions white */
+        }
         @media (max-width: 768px) {
             .mobile-search {
                 position: sticky;
@@ -80,49 +69,34 @@
     </style>
 </head>
 <body>
-
 <div class='container py-3 py-md-5'>
     <div class='row justify-content-center'>
         <div class='col-lg-8'>
-
             <div class='card shadow-sm'>
                 <div class='card-body'>
-
-                    <h3 class='mb-4 text-center'>
-                        One: Google simplif
-                    </h3>
+                    <h3 class='mb-4 text-center'>One: Google simplified by hundred zeros</h3>
 
                     <!-- INPUT -->
                     <div class='mb-3'>
-                        <input id='queryInput'
-                               type='text'
-                               class='form-control form-control-lg'
-                               placeholder='Enter search text...'>
+                        <input id='queryInput' type='text' class='form-control form-control-lg' placeholder='Enter search text...'>
                     </div>
 
                     <!-- COUNTRIES -->
                     <div class='mb-3'>
                         <strong>Country</strong>
-                        <div id='countryButtons'
-                             class='d-flex flex-wrap gap-2 mt-2'></div>
+                        <div id='countryButtons' class='d-flex flex-wrap gap-2 mt-2'></div>
                     </div>
 
                     <!-- YEAR -->
                     <div class='mb-3'>
                         <strong>Year limit</strong>
-                        <div id='yearButtons'
-                             class='d-flex flex-wrap gap-2 mt-2'></div>
+                        <div id='yearButtons' class='d-flex flex-wrap gap-2 mt-2'></div>
                     </div>
 
                     <!-- EXCLUDE -->
                     <div class='form-check form-switch mb-4'>
-                        <input class='form-check-input'
-                               type='checkbox'
-                               id='excludeSocial'
-                               checked>
-                        <label class='form-check-label' for='excludeSocial'>
-                            Exclude social media
-                        </label>
+                        <input class='form-check-input' type='checkbox' id='excludeSocial' checked>
+                        <label class='form-check-label' for='excludeSocial'>Exclude social media</label>
                     </div>
 
                 </div>
@@ -130,18 +104,12 @@
 
             <!-- MOBILE SEARCH -->
             <div class='mobile-search d-md-none'>
-                <button class='btn btn-success w-100 btn-lg'
-                        onclick='runSearch()'>
-                    Search
-                </button>
+                <button class='btn btn-success w-100 btn-lg' onclick='runSearch()'>Search</button>
             </div>
 
             <!-- DESKTOP SEARCH -->
             <div class='text-end mt-3 d-none d-md-block'>
-                <button class='btn btn-success btn-lg'
-                        onclick='runSearch()'>
-                    Search
-                </button>
+                <button class='btn btn-success btn-lg' onclick='runSearch()'>Search</button>
             </div>
 
         </div>
@@ -152,7 +120,6 @@
 /* ===============================
    CONFIG
 ================================ */
-
 const COUNTRY_CONFIG = {
     CZ: { lang: 'cs', gl: 'CZ' },
     SK: { lang: 'sk', gl: 'SK' },
@@ -163,15 +130,18 @@ const COUNTRY_CONFIG = {
 }
 
 const currentYear = new Date().getFullYear()
-const YEAR_LIST = ['2015', '2020', String(currentYear)]
+const YEAR_RANGES = [
+    {label: '<2015', start: null, end: 2015},
+    {label: '2015-2020', start: 2015, end: 2020},
+    {label: '2020-' + currentYear, start: 2020, end: currentYear}
+]
 
-let selectedCountry = 'CZ'
-let yearLimit = currentYear
+let selectedCountry = localStorage.getItem('lastCountry') || 'CZ'
+let selectedYearRangeIndex = localStorage.getItem('lastYearIndex') ? Number(localStorage.getItem('lastYearIndex')) : 2 // default last = currentYear
 
 /* ===============================
    INIT
 ================================ */
-
 document.addEventListener('DOMContentLoaded', () => {
     createCountryButtons()
     createYearButtons()
@@ -181,19 +151,14 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ===============================
    UI BUILDERS
 ================================ */
-
 function createCountryButtons() {
     const container = document.getElementById('countryButtons')
-
+    container.innerHTML = ''
     Object.keys(COUNTRY_CONFIG).forEach(code => {
         const btn = document.createElement('button')
         btn.className = 'btn btn-outline-primary btn-country'
         btn.innerText = code
-
-        if (code === selectedCountry) {
-            btn.classList.add('active')
-        }
-
+        if(code === selectedCountry) btn.classList.add('active')
         btn.onclick = () => setCountry(btn, code)
         container.appendChild(btn)
     })
@@ -201,17 +166,13 @@ function createCountryButtons() {
 
 function createYearButtons() {
     const container = document.getElementById('yearButtons')
-
-    YEAR_LIST.forEach(year => {
+    container.innerHTML = ''
+    YEAR_RANGES.forEach((range, index) => {
         const btn = document.createElement('button')
         btn.className = 'btn btn-outline-secondary btn-year'
-        btn.innerHTML = '&lt;' + year
-
-        if (Number(year) === yearLimit) {
-            btn.classList.add('active')
-        }
-
-        btn.onclick = () => setYear(btn, Number(year))
+        btn.innerText = range.label
+        if(index === selectedYearRangeIndex) btn.classList.add('active')
+        btn.onclick = () => setYear(btn, index)
         container.appendChild(btn)
     })
 }
@@ -219,47 +180,38 @@ function createYearButtons() {
 /* ===============================
    HANDLERS
 ================================ */
-
 function setCountry(btn, country) {
-    document.querySelectorAll('.btn-country')
-        .forEach(b => b.classList.remove('active'))
-
+    document.querySelectorAll('.btn-country').forEach(b => b.classList.remove('active'))
     btn.classList.add('active')
     selectedCountry = country
+    localStorage.setItem('lastCountry', selectedCountry)
     runSearch()
 }
 
-function setYear(btn, year) {
-    document.querySelectorAll('.btn-year')
-        .forEach(b => b.classList.remove('active'))
-
+function setYear(btn, index) {
+    document.querySelectorAll('.btn-year').forEach(b => b.classList.remove('active'))
     btn.classList.add('active')
-    yearLimit = year
+    selectedYearRangeIndex = index
+    localStorage.setItem('lastYearIndex', selectedYearRangeIndex)
     runSearch()
 }
 
 /* ===============================
    QUERY FROM URL
 ================================ */
-
 function setDefaultQueryFromUrl() {
     const params = new URLSearchParams(window.location.search)
     const q = params.get('q')
-
-    document.getElementById('queryInput').value =
-        q ? decodeURIComponent(q) : 'ukrajina volby'
+    document.getElementById('queryInput').value = q ? decodeURIComponent(q) : 'ukrajina volby'
 }
 
 /* ===============================
-   SEARCH
+   SEARCH LOGIC
 ================================ */
-
 async function runSearch() {
     const text = document.getElementById('queryInput').value.trim()
-    if (!text) return
-
+    if(!text) return
     const lang = COUNTRY_CONFIG[selectedCountry].lang
-
     try {
         const translated = await translateText(text, lang)
         openGoogleSearch(translated)
@@ -269,48 +221,34 @@ async function runSearch() {
 }
 
 async function translateText(text, lang) {
-    if (lang === 'cs') return text
-
-    const url =
-        'https://api.mymemory.translated.net/get' +
-        '?q=' + encodeURIComponent(text) +
-        '&langpair=cs|' + lang
-
+    if(lang === 'cs') return text
+    const url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=auto|' + lang
     const response = await fetch(url)
     const data = await response.json()
-
-    if (!data.responseData?.translatedText) {
-        throw new Error('Translation failed')
-    }
-
+    if(!data.responseData?.translatedText) throw new Error('Translation failed')
     return data.responseData.translatedText
 }
 
 function openGoogleSearch(queryText) {
-    let query = queryText + ' before:' + yearLimit
+    let query = queryText
 
-    if (document.getElementById('excludeSocial').checked) {
-        query +=
-            ' -site:facebook.com' +
-            ' -site:instagram.com' +
-            ' -site:tiktok.com' +
-            ' -site:twitter.com' +
-            ' -site:x.com'
+    const range = YEAR_RANGES[selectedYearRangeIndex]
+    let tbs = 'cdr:1'
+    if(range.start) tbs += ',cd_min:' + range.start
+    if(range.end) tbs += ',cd_max:' + range.end
+
+    if(document.getElementById('excludeSocial').checked) {
+        query += ' -site:facebook.com -site:instagram.com -site:tiktok.com -site:twitter.com -site:x.com'
     }
 
     const cfg = COUNTRY_CONFIG[selectedCountry]
-    const tbs = 'cdr:1,cd_max:' + yearLimit
-
-    const url =
-        'https://www.google.com/search' +
-        '?q=' + encodeURIComponent(query) +
-        '&hl=' + cfg.lang +
-        '&gl=' + cfg.gl +
-        '&tbs=' + encodeURIComponent(tbs)
+    const url = 'https://www.google.com/search?q=' + encodeURIComponent(query) +
+                '&hl=' + cfg.lang +
+                '&gl=' + cfg.gl +
+                '&tbs=' + encodeURIComponent(tbs)
 
     window.open(url, '_blank')
 }
 </script>
-
 </body>
 </html>
