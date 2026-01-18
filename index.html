@@ -211,7 +211,9 @@ function setYear(btn, index) {
 function setDefaultQueryFromUrl() {
     const params = new URLSearchParams(window.location.search)
     const q = params.get('q')
-    document.getElementById('queryInput').value = q ? decodeURIComponent(q) : ''
+    q = q ? decodeURIComponent(q) : 'Cesko'
+    document.getElementById('queryInput').value = q 
+    alert(q)
 }
 function updateTitleFromInput() {
     const text = document.getElementById('queryInput').value.trim() ;
