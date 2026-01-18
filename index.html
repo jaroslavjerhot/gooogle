@@ -77,7 +77,7 @@
         <div class='col-lg-8'>
             <div class='card shadow-sm'>
                 <div class='card-body'>
-                    <h3 class='mb-4 text-center'>abroadInfo6</h3>
+                    <h3 class='mb-4 text-center'>abroadInfo7</h3>
 
                     <!-- INPUT -->
                     <div class='mb-3'>
@@ -146,8 +146,8 @@ const YEAR_RANGES = [
     //{ label: '2019-2021', start: 2019, end: 2021, tbs: 'cdr:1,cd_min:1/1/2019,cd_max:12/31/2021' },
     //{ label: '2022-' + (previousYear), start: 2022, end: previousYear, tbs: `cdr:1,cd_min:1/1/2022,cd_max:12/31/${previousYear}`},
     //{ label: String(currentYear), start: currentYear, end: currentYear, tbs: `cdr:1,cd_min:1/1/${CURRENT_YEAR},cd_max:12/31/${CURRENT_YEAR}` },
-    //{ label: 'last week', start: currentYear, end: currentYear, tbs: 'qdr:w' },
-    //{ label: 'last 24h', start: currentYear, end: currentYear, tbs: 'qdr:d' }
+    { label: 'last week', start: currentYear, end: currentYear, tbs: 'qdr:w' },
+    { label: 'last 24h', start: currentYear, end: currentYear, tbs: 'qdr:d' }
 ];
 
 let selectedCountry = localStorage.getItem('lastCountry') || 'CZ'
@@ -255,10 +255,10 @@ function openGoogleSearch(queryText) {
     let query = queryText
 
     const range = YEAR_RANGES[selectedYearRangeIndex]
-    let tbs = 'cdr:1'
-    if(range.start) tbs += ',cd_min:' + range.start
-    if(range.end) tbs += ',cd_max:' + range.end
-    //let tbs = range.tbs
+    //let tbs = 'cdr:1'
+    //if(range.start) tbs += ',cd_min:' + range.start
+    //if(range.end) tbs += ',cd_max:' + range.end
+    let tbs = range.tbs
 
     if(document.getElementById('excludeSocial').checked) {
         query += ' -site:facebook.com -site:instagram.com -site:youtube.com -site:x.com -site:wikipedia.org -site:reddit.com'
