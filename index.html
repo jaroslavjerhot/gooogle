@@ -226,8 +226,11 @@ async function runSearch() {
     if(!text) return
     const lang = COUNTRY_CONFIG[selectedCountry].lang
     try {
-        const translated = await translateText(text, lang)
-        openGoogleSearch(translated)
+        const translated = await translateText(text, lang);
+        // Prompt the user to edit/confirm the search query
+        let finalText = prompt("Modify the search query if needed:", translated);
+        if (!finalText) return;
+        openGoogleSearch(finalText)
     } catch {
         openGoogleSearch(text)
     }
