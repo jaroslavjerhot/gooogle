@@ -1,0 +1,89 @@
+  
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff; /* white text */
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        h1, h2, h3, h4, h5, h6, strong, label {
+            color: #ffffff !important;
+        }
+        .header {
+          display: flex;
+          justify-content: center; /* horizontal */
+          align-items: center;     /* vertical (if header has height) */
+          padding: 16px 0;
+        }
+
+        .logo {
+          width: 50vw;       /* half of mobile screen */
+          max-width: 320px;
+          min-width: 160px;
+        }
+        #queryInput {
+          width: 100%;
+          max-width: 900px;
+          background: #111;
+          color: #fff;
+          border: 1px solid #444;
+          border-radius: 8px;
+          padding: 12px;
+          font-size: 16px;
+          resize: none;        /* prevents dragging */
+        }
+
+        .card {
+            background-color: #1a1a1a;
+            border: none;
+        }
+        .form-control {
+            background-color: #121212;
+            color: #ffffff;
+            border: 1px solid #333;
+        }
+        .form-control:focus {
+            background-color: #121212;
+            color: #ffffff;
+            border-color: #0d6efd;
+            box-shadow: none;
+        }
+        .btn {
+            min-height: 44px;
+        }
+        .btn-outline-primary,
+        .btn-outline-secondary {
+            color: #ffffff;
+            border-color: #555;
+        }
+        .btn-outline-primary:hover,
+        .btn-outline-secondary:hover {
+            background-color: #333;
+            border-color: #666;
+        }
+        .btn-country.active,
+        .btn-year.active {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: #ffffff;
+        }
+        .form-check-input {
+            background-color: #222;
+            border-color: #555;
+        }
+        .form-check-input:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+        .form-check-label {
+            color: #ffffff; /* captions white */
+        }
+        @media (max-width: 768px) {
+            .mobile-search {
+                position: sticky;
+                bottom: 0;
+                background-color: #111;
+                padding: 12px;
+                box-shadow: 0 -2px 12px rgba(0,0,0,.6);
+                z-index: 1000;
+            }
+        }
+    
