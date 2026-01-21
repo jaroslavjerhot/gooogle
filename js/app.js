@@ -2,9 +2,58 @@
 /* ===============================
    CONFIG
 ================================ */
-const COUNTRY_CONFIG = {
-    CZ: { lang: 'cs', gl: 'CZ' },
-    CZ2: { lang: 'cs', gl: 'CZ' },
+/* ===============================
+   INIT
+================================ */
+// document.addEventListener('DOMContentLoaded', setDefaultQueryFromUrl)
+
+const dctDefaultForm = {
+    sText: 'Česko',
+    sLang: 'cs',
+    sGeo: 'CZ',
+}
+
+const dctCurrForm = { ...dctDefaultForm }    
+
+const dctTrans = {}; // translation cache
+const queryInput = document.getElementById('queryInput')
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    setDefaultQueryFromUrl();
+    updateTitleFromInput(); // <-- set title immediately on load
+    createCountryButtons();
+    createYearButtons();
+
+})
+
+
+/* ===============================
+   QUERY FROM URL
+================================ */
+function setDefaultQueryFromUrl() {
+    const params = new URLSearchParams(window.location.search)
+    dctCurrForm.sText = (params.get('q') || '').trim() || dctDefaultForm.sText;
+    dctCurrForm.sLang = (params.get('l') || '').trim() || dctDefaultForm.sLang;
+    dctCurrForm.sGeo = (params.get('g') || '').trim() || dctDefaultForm.sGeo;
+    queryInput.value = dctCurrForm.sText;
+    return dctCurrForm;
+}
+
+function updateTitleFromInput() {
+    dctCurrForm.sText = queryInput.value.trim() ;
+    //document.title = 'aInfo' + (text ? ': ' + text : 'Česko');
+    document.title = 'a: ' + dctCurrForm.sText;
+}
+
+queryInput.addEventListener('input', () => {
+    dctTrans = {}   // clear dictionary
+})
+
+// nastavi country config
+const dctCountryConfig = {
+    CZ: { lang: dctDefaultForm.sLang, gl: dctDefaultForm.sGeo },
+    //CZ: { lang: 'cs', gl: 'CZ' },
     SK: { lang: 'sk', gl: 'SK' },
     UA: { lang: 'uk', gl: 'UA' },
     US: { lang: 'en', gl: 'US' },
@@ -13,6 +62,16 @@ const COUNTRY_CONFIG = {
     HU: { lang: 'hu', gl: 'HU' },
     PL: { lang: 'pl', gl: 'PL' },    
 }
+// pridat CZ pokud neni
+// if (!(dctDefaultForm.sGeo in dctCountryConfig)){
+//     const dct = {};
+//     dct[dctDefaultForm.sGeo] = { lang: dctDefaultForm.sLang, gl: dctDefaultForm.sGeo };
+//     dctCountryConfig = {
+//         ...dct,
+//         ...dctCountryConfig
+//     }
+// }
+
 
 const currentYear = new Date().getFullYear()
 const previousYear = currentYear - 1;
@@ -30,15 +89,9 @@ const YEAR_RANGES = [
 let selectedCountry = localStorage.getItem('lastCountry') || 'CZ'
 let selectedYearRangeIndex = localStorage.getItem('lastYearIndex') ? Number(localStorage.getItem('lastYearIndex')) : 2 // default last = currentYear
 
-/* ===============================
-   INIT
-================================ */
-document.addEventListener('DOMContentLoaded', () => {
-    createCountryButtons();
-    createYearButtons();
-    setDefaultQueryFromUrl();
-    updateTitleFromInput(); // <-- set title immediately on load
-})
+
+
+
 
 /* ===============================
    UI BUILDERS
@@ -46,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function createCountryButtons() {
     const container = document.getElementById('countryButtons')
     container.innerHTML = ''
-    Object.keys(COUNTRY_CONFIG).forEach(code => {
+    Object.keys(dctCountryConfig).forEach(code => {
         const btn = document.createElement('button')
         btn.className = 'btn btn-outline-primary btn-country'
         btn.innerText = code
@@ -88,39 +141,32 @@ function setYear(btn, index) {
     runSearch()
 }
 
-/* ===============================
-   QUERY FROM URL
-================================ */
-function setDefaultQueryFromUrl() {
-    const params = new URLSearchParams(window.location.search)
-    const q = (params.get('q') || '').trim() || 'Česko';
-    document.getElementById('queryInput').value = q ? decodeURIComponent(q) : ''
-}
-function updateTitleFromInput() {
-    const text = document.getElementById('queryInput').value.trim() ;
-    document.title = 'aInfo' + (text ? ': ' + text : 'Česko');
-}
+
 /* ===============================
    SEARCH LOGIC
 ================================ */
 async function runSearch() {
-    const text = document.getElementById('queryInput').value.trim()
+    const text = queryInput.value.trim()
     //document.title = '1: ' + text;
     if(!text) return
-    const lang = COUNTRY_CONFIG[selectedCountry].lang
-    try {
-        const translated = await translateText(text, lang);
-        // Prompt the user to edit/confirm the search query
-        let finalText = prompt("Modify the search query if needed:", translated);
-        if (!finalText) return;
-        openGoogleSearch(finalText)
-    } catch {
-        openGoogleSearch(text)
-    }
+    const lang = dctCountryConfig[selectedCountry].lang
+
+    if (!(lang in dctTrans)) {
+        try {
+            const translated = await translateText(text, lang);
+            // Prompt the user to edit/confirm the search query
+            let finalText = prompt("Modify the search query if needed:", translated);
+            if (!finalText) return;
+            dctTrans[lang] = finalText;
+            openGoogleSearch(finalText)
+        } catch {
+            openGoogleSearch(text)
+        }
+    } 
 }
 
 async function translateText(text, lang) {
-    if(lang === 'cs') return text
+    if(lang === sBaseLang) return text
     const url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=cs|' + lang
     const response = await fetch(url)
     const data = await response.json()
@@ -144,11 +190,12 @@ function openGoogleSearch(queryText) {
     
     
 
-    const cfg = COUNTRY_CONFIG[selectedCountry]
+    const cfg = dctCountryConfig[selectedCountry]
     const url = 'https://www.google.com/search?q=' + encodeURIComponent(query) +
                 '&hl=' + cfg.lang +
                 '&gl=' + cfg.gl +
                 '&tbs=' + encodeURIComponent(tbs)
 
     window.open(url, '_blank')
+    x=0
 }
