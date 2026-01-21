@@ -43,10 +43,15 @@
 
                     <!-- YEAR -->
                     <div class='mb-3'>
-                        <strong>Time limit</strong>
+                        <strong>Time limit or event</strong>
                         <div id='yearButtons' class='d-flex flex-wrap gap-2 mt-2'></div>
+                        <br>
+                        <select id="eventSelect" class="form-select form-select-dark">
+                            <option value="">— Select event —</option>
+                        </select>
+                        <br>
                     </div>
-
+                        
                     <!-- EXCLUDE -->
                     <div class='form-check form-switch mb-4'>
                         <input class='form-check-input' type='checkbox' id='excludeSocial' checked>
@@ -70,6 +75,7 @@
             <div class='text-end mt-3 d-none d-md-block'>
                 <button class='btn btn-success btn-lg' onclick='runSearch()'>Search</button>
             </div>
+            <a href="admin_events.html">admin</a>
 
         </div>
     </div>

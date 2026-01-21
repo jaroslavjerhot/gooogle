@@ -5,7 +5,6 @@
 /* ===============================
    INIT
 ================================ */
-// document.addEventListener('DOMContentLoaded', setDefaultQueryFromUrl)
 
 const dctDefaultForm = {
     sText: 'Česko',
@@ -24,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTitleFromInput(); // <-- set title immediately on load
     createCountryButtons();
     createYearButtons();
+    //loadEventsCSV();
+    initEventSelector();
 
 })
 
@@ -77,11 +78,14 @@ const dctCountryConfig = {
 const currentYear = new Date().getFullYear()
 const previousYear = currentYear - 1;
 const YEAR_RANGES = [
-    { label: '<2009', start: null, end: 2009, tbs: 'cdr:1,cd_max:12/31/2008' },
-    { label: '2010-2014', start: 2010, end: 2014, tbs: 'cdr:1,cd_min:1/1/2010,cd_max:12/31/2014' },
-    { label: '2015-2018', start: 2015, end: 2018, tbs: 'cdr:1,cd_min:1/1/2015,cd_max:12/31/2018' },
-    { label: '2019-2021', start: 2019, end: 2021, tbs: 'cdr:1,cd_min:1/1/2019,cd_max:12/31/2021' },
-    { label: '2022-' + (previousYear), start: 2022, end: previousYear, tbs: `cdr:1,cd_min:1/1/2022,cd_max:12/31/${previousYear}`},
+//    { label: '<2009', start: null, end: 2009, tbs: 'cdr:1,cd_max:12/31/2008' },
+//    { label: '2010-2014', start: 2010, end: 2014, tbs: 'cdr:1,cd_min:1/1/2010,cd_max:12/31/2014' },
+//    { label: '2015-2018', start: 2015, end: 2018, tbs: 'cdr:1,cd_min:1/1/2015,cd_max:12/31/2018' },
+//    { label: '2019-2021', start: 2019, end: 2021, tbs: 'cdr:1,cd_min:1/1/2019,cd_max:12/31/2021' },
+//    { label: '2022-' + (previousYear), start: 2022, end: previousYear, tbs: `cdr:1,cd_min:1/1/2022,cd_max:12/31/${previousYear}`},
+    { label: String(currentYear-3), start: currentYear, end: currentYear, tbs: `cdr:1,cd_min:1/1/${currentYear-3},cd_max:12/31/${currentYear-3}` },
+    { label: String(currentYear-2), start: currentYear, end: currentYear, tbs: `cdr:1,cd_min:1/1/${currentYear-2},cd_max:12/31/${currentYear-2}` },
+    { label: String(currentYear-1), start: currentYear, end: currentYear, tbs: `cdr:1,cd_min:1/1/${currentYear-1},cd_max:12/31/${currentYear-1}` },
     { label: String(currentYear), start: currentYear, end: currentYear, tbs: `cdr:1,cd_min:1/1/${currentYear},cd_max:12/31/${currentYear}` },
     { label: 'last week', start: currentYear, end: currentYear, tbs: 'qdr:w' },
     { label: 'last 24h', start: currentYear, end: currentYear, tbs: 'qdr:d' }
@@ -203,5 +207,57 @@ function openGoogleSearch(queryText) {
                 '&tbs=' + encodeURIComponent(tbs)
 
     window.open(url, '_blank')
-    x=0
+
+}
+/* ===============================
+   ADMIN EVENTS CSV LOAD
+================================ */
+async function loadEventsCSV() {
+    let csv = localStorage.getItem('eventsCSV');
+
+    if (!csv) {
+        const res = await fetch('events.csv');
+        csv = await res.text();
+    }
+    return parseCSV(csv);
+}
+
+function parseCSV(text) {
+    const lines = text.trim().split('\n');
+    const headers = lines.shift().split(';');
+
+    return lines.map(l => {
+        const o = {};
+        l.split(';').forEach((v, i) => o[headers[i]] = v || null);
+        return o;
+    });
+}
+
+async function initEventSelector() {
+    const events = await loadEventsCSV();
+    const sel = document.getElementById('eventSelect');
+
+    events.forEach(ev => {
+        const opt = document.createElement('option');
+        opt.value = ev.id;
+        opt.textContent = dateToYYYY_MM(ev.start) + ' – ' + dateToYYYY_MM(ev.end) + ' | ' + (ev.title || 'undefined');
+        opt.dataset.start = dateToUsformat(ev.start);
+        opt.dataset.end = dateToUsformat(ev.end);
+        sel.appendChild(opt);
+    });
+}
+
+function dateToYYYY_MM(str) {
+    // str = "31.12.2025"
+    if (!str) return '_____-___';
+    const [day, month, year] = str.split('.');
+    return `${year}-${month.padStart(2,'0')}`;
+}
+
+function dateToUsformat(str) {
+    if (!str) return '';
+    const parts = str.split('.');
+    if (parts.length !== 3) return '';
+    const [day, month, year] = parts;
+    return `${month.padStart(2,'0')}/${day.padStart(2,'0')}/${year}`;
 }
