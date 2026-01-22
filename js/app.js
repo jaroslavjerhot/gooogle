@@ -14,7 +14,7 @@ const dctDefaultForm = {
 
 const dctCurrForm = { ...dctDefaultForm }    
 
-const dctTrans = {}; // translation cache
+let dctTrans = {}; // translation cache
 
 const queryInput = document.getElementById('queryInput')
 const eventSelect = document.getElementById('eventSelect');
@@ -169,6 +169,7 @@ function setCountry(btn, country) {
     btn.classList.add('active')
     selectedCountry = country
     localStorage.setItem('lastCountry', selectedCountry)
+    document.title = 'a: ' + queryInput.value.trim();
     //runSearch()
 }
 
@@ -178,7 +179,8 @@ function setYear(btn, index) {
     if(btn) {btn.classList.add('active')}
     selectedYearRangeIndex = index
     localStorage.setItem('lastYearIndex', selectedYearRangeIndex);
-    eventSelect.value = '';
+    // eventSelect.value = '';
+    document.title = 'a: ' + queryInput.value.trim();
     //runSearch()
 }
 // eventSelect.addEventListener('change', () => {
@@ -196,8 +198,9 @@ async function runSearch() {
     if(!text) return
 
     if (text !== dctTrans[dctDefaultForm.sLang]) {
-        const dctTrans = {}  // clear dictionary
+        dctTrans = {}  // clear dictionary
         dctTrans[dctDefaultForm.sLang] = text
+        document.title = 'a: ' + text;
     }
         //document.title = '1: ' + text;
 
