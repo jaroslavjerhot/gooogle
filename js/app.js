@@ -232,16 +232,17 @@ function openGoogleSearch(queryText, sDevice) {
             break
         case 'excludeSocial': query = '-site:facebook.com -site:instagram.com -site:youtube.com -site:x.com -site:wikipedia.org -site:reddit.com ' + query
             break
-        case 'statsOnly': 
-            // query = 'site:tradingeconomics.com OR site:statista.com OR site:worldbank.org OR site:imf.org OR site:oecd.org ' + query
-            //query = 'site:tradingeconomics.com+' + query
-            //urlTE = 'https://tradingeconomics.com/search.aspx?q=' + query
-            break
         case 'prOnly': query += ' press release'
             break
         case 'imagesOnly': query += '&tbm=isch'
             break
         case 'largeImagesOnly': query += '&tbm=isch&tbs=isz:lt,islt:4mp'
+            break
+        case 'podcastsOnly': 
+            query += ' (site:podcasts.apple.com OR site:open.spotify.com OR site:listennotes.com OR site:podchaser.com) '
+            //query += ' (site:podcasts.apple.com OR site:open.spotify.com) '
+            break
+        case 'videosOnly': query += '&tbm=vid'
             break
         case 'pdfOnly': query += ' filetype:pdf'
             break
@@ -255,6 +256,8 @@ function openGoogleSearch(queryText, sDevice) {
     let url = '';
     if (sSearchTypeChecked === 'statsOnly') {
         url = 'https://tradingeconomics.com/search.aspx?q=' + encodeURIComponent(queryText);
+    // } else if (sSearchTypeChecked === 'podcastsOnly') {
+    //     url = 'https://podcasts.google.com/search/' + query + cntry + tbs
     } else {
         url = 'https://www.google.com/search?q=' + query + cntry + tbs
     }
