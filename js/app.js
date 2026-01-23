@@ -68,15 +68,15 @@ function setSearchTypeFromStorage() {
 // nastavi country config
 const dctCountryConfig = {
     //CZ: { hl: dctDefaultForm.shl, gl: dctDefaultForm.sGeo },
-    CZ: { lang: 'cs', hl: 'cs', gl: 'CZ', descr: 'Czechia' },
+    CZ: { lang: 'cs', hl: 'cs', gl: 'CZ', descr: 'Česko' },
     EN: { lang: 'en', lr: 'lang_en', descr: 'Global' },
     SK: { lang: 'sk', gl: 'SK', descr: 'Slovakia'},
-    UA: { lang: 'uk', hl: 'uk', gl: 'UA', descr: 'Ukraine'},
+    UA: { lang: 'uk', hl: 'uk', gl: 'UA', descr: 'Ukrajina'},
     US: { lang: 'en', hl: 'en', gl: 'US', descr: 'USA'},
-    DE: { lang: 'de', hl: 'de', gl: 'DE', descr: 'Germany'},
-    AT: { lang: 'de', hl: 'de', gl: 'AT', descr: 'Austria' },
-    HU: { lang: 'hu', hl: 'hu', gl: 'HU', descr: 'Hungary' },
-    PL: { lang: 'pl', hl: 'pl', gl: 'PL', descr: 'Poland' },    
+    DE: { lang: 'de', hl: 'de', gl: 'DE', descr: 'Německo'},
+    AT: { lang: 'de', hl: 'de', gl: 'AT', descr: 'Rakousko' },
+    HU: { lang: 'hu', hl: 'hu', gl: 'HU', descr: 'Maďarsko' },
+    PL: { lang: 'pl', hl: 'pl', gl: 'PL', descr: 'Polsko' },    
 }
 
 Object.entries(dctCountryConfig).forEach(([key, o]) => {
@@ -99,12 +99,12 @@ Object.entries(dctCountryConfig).forEach(([key, o]) => {
 const currentYear = new Date().getFullYear()
 const previousYear = currentYear - 1;
 const lstTimePeriods = [
-    { label: 'no limit', start: currentYear, end: currentYear, tbs: '' },
-    { label: 'last 24h', start: currentYear, end: currentYear, tbs: 'qdr:d' },
-    { label: 'last week', start: currentYear, end: currentYear, tbs: 'qdr:w' },
-    { label: 'last month', start: currentYear, end: currentYear, tbs: 'qdr:m' },
-    { label: 'last year', start: currentYear, end: currentYear, tbs: 'qdr:y' },
-    { label: 'last 3yrs', start: currentYear, end: currentYear, tbs: `cdr:1,cd_min:1/1/${currentYear - 3}` },
+    { label: 'bez limitu', start: currentYear, end: currentYear, tbs: '' },
+    { label: 'posl. 24h', start: currentYear, end: currentYear, tbs: 'qdr:d' },
+    { label: 'posl. týden', start: currentYear, end: currentYear, tbs: 'qdr:w' },
+    { label: 'posl. měsíc', start: currentYear, end: currentYear, tbs: 'qdr:m' },
+    { label: 'posl. rok', start: currentYear, end: currentYear, tbs: 'qdr:y' },
+    { label: 'posl. 3 roky', start: currentYear, end: currentYear, tbs: `cdr:1,cd_min:1/1/${currentYear - 3}` },
 ];
 
 for (let y = currentYear; y > currentYear - 10; y--) {
@@ -171,11 +171,7 @@ function setYear(btn, index) {
     document.title = 'a: ' + queryInput.value.trim();
     //runSearch()
 }
-// eventSelect.addEventListener('change', () => {
-//     if (eventSelect.value) {
-//         setYear(null, -1); // deselect year buttons
-//     }
-// });
+
 
 
 /* ===============================

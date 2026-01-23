@@ -4,6 +4,13 @@
     <meta charset='UTF-8', content='notranslate'>
     <title>aInfo</title>
     <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover'>
+    <!-- black navigation, Chrome, Android  -->
+    <meta name="theme-color" content="#000000">
+    <!-- black navigation Safari iOS -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- black navigation Windows / Edge -->
+    <meta name="msapplication-navbutton-color" content="#000000">
+    
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet'>
     <link rel="icon" type="image/png" sizes="32x32" href="img/FaviconWhite32.png">
     <link rel="apple-touch-icon" href="img/FaviconWhite180.png">
@@ -37,13 +44,13 @@
 
                     <!-- COUNTRIES -->
                     <div class='mb-3'>
-                        <strong>Country/Language</strong>
+                        <strong>Země/jazyk</strong>
                         <div id='countryButtons' class='d-flex flex-wrap gap-2 mt-2'></div>
                     </div>
 
                     <!-- YEAR -->
                     <div class='mb-3'>
-                        <strong>Time limit</strong>
+                        <strong>Časové období</strong>
                         <div id='yearButtons' class='d-flex flex-wrap gap-2 mt-2'></div>
                         
                         <!-- <br>
@@ -56,57 +63,57 @@
                         
                     <!-- other -->
                     <div class='mb-3'>
-                        <strong>Other specs</strong>
+                        <strong>Další specifikace</strong>
                     
                         <div class='form-check form-switch mb-4'>
                             <label>
                                 <input type="radio" name="searchType" value="nothing" checked class='form-check-input'>
-                                    No specs
+                                    Bez dalších specifikací
                             </label>
                             <br>
                             <label>
                                 <input type="radio" name="searchType" value="excludeSocial" checked class='form-check-input'>
-                                    Exclude Wiki, X, FB, YT, Insta, Reddit
+                                    Kromě: Wiki, X, FB, YT, Insta, Reddit
                             </label>
                             <br>
                             <label>
                                 <input type="radio" name="searchType" value="statsOnly" class='form-check-input'>
-                                    Show stats on TradingEconomics.com
+                                    Pouze statistiky na TradingEconomics.com
                             </label>
                             <br>
                             <label>
                                 <input type="radio" name="searchType" value="prOnly" class='form-check-input'>
-                                    Show only PR news
+                                    Pouze tiskové zprávy
                             </label>
                             <br>
                             <label>
                                 <input type="radio" name="searchType" value="imagesOnly" class='form-check-input'>
-                                    Show images only
+                                    Pouze obrázky (libovolné velikosti)
                             </label>
                             <br>
                             <label>
                                 <input type="radio" name="searchType" value="largeImagesOnly" class='form-check-input'>
-                                    Show large images only (4MP+)
+                                    Pouze velké obrázky (4MP+)
                             </label>
                             <br>
                             <label>
                                 <input type="radio" name="searchType" value="videosOnly" class='form-check-input'>
-                                    Show videos only
+                                    Pouze videa
                             </label>
                             <br>
                             <label>
                                 <input type="radio" name="searchType" value="podcastsOnly" class='form-check-input'>
-                                    Show podcasts only 
+                                    Pouze podcasty 
                             </label>
                             <br>
                             <label>
                                 <input type="radio" name="searchType" value="pptOnly" class='form-check-input'>
-                                    Show presentations only
+                                    Pouze PowerPointové prezentace
                             </label>
                             <br>
                             <label>
                                 <input type="radio" name="searchType" value="pdfOnly" class='form-check-input'>
-                                    Show PDFs only
+                                    Pouze PDF dokumenty
                             </label>
                         </div>
 
@@ -117,13 +124,13 @@
 
             <!-- MOBILE SEARCH -->
             <div class='mobile-search d-md-none'>
-                <button class='btn btn-success w-100 btn-lg' id='search-mobile' onclick='runSearch("mobile")'>Create search query</button>
+                <button class='btn btn-success w-100 btn-lg' id='search-mobile' onclick='runSearch("mobile")'>Hledej</button>
             </div>
 
             <!-- DESKTOP SEARCH -->
             <div class='text-end mt-3 d-none d-md-block'>
-                <button class='btn btn-success btn-lg' id='create-query' onclick='runSearch("desktop")'>Create search query</button>
-                <a href="#" id="open-results" class= 'btn btn-success btn-lg' target="_blank" hidden>Open search results</a>
+                <button class='btn btn-success btn-lg' id='create-query' onclick='runSearch("desktop")'>Hledej</button>
+                <a href="#" id="open-results" class= 'btn btn-success btn-lg' target="_blank" hidden>Hledej</a>
             </div>
             
             
