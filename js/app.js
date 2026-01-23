@@ -99,6 +99,7 @@ Object.entries(dctCountryConfig).forEach(([key, o]) => {
 const currentYear = new Date().getFullYear()
 const previousYear = currentYear - 1;
 const lstTimePeriods = [
+    { label: 'no limit', start: currentYear, end: currentYear, tbs: '' },
     { label: 'last 24h', start: currentYear, end: currentYear, tbs: 'qdr:d' },
     { label: 'last week', start: currentYear, end: currentYear, tbs: 'qdr:w' },
     { label: 'last month', start: currentYear, end: currentYear, tbs: 'qdr:m' },
@@ -222,9 +223,9 @@ function openGoogleSearch(queryText, sDevice) {
     let query = encodeURIComponent(queryText)
     localStorage.setItem('queryInput', queryText)
 
-    let tbs = '&tbs=' + lstTimePeriods[selectedYearRangeIndex].tbs
-    const cntry = dctCountryConfig[selectedCountry].g    
-    const urlTE = '';
+    let tbs = (lstTimePeriods[selectedYearRangeIndex].tbs ? '&tbs=' + lstTimePeriods[selectedYearRangeIndex].tbs : '')
+    let cntry = dctCountryConfig[selectedCountry].g    
+
     const sSearchTypeChecked = Array.from(searchType).find(radio => radio.checked).value;
     localStorage.setItem('lastSearchType', sSearchTypeChecked);
     switch (sSearchTypeChecked) {
@@ -241,8 +242,11 @@ function openGoogleSearch(queryText, sDevice) {
         case 'podcastsOnly': 
             query += ' (site:podcasts.apple.com OR site:open.spotify.com OR site:listennotes.com OR site:podchaser.com) '
             //query += ' (site:podcasts.apple.com OR site:open.spotify.com) '
+            cntry = cntry.replace('&hl=', '&lang:') // replace lang for podcasts
+            
             break
         case 'videosOnly': query += '&tbm=vid'
+            cntry = cntry.replace('&hl=', '&lr=lang_') // replace lang for video search
             break
         case 'pdfOnly': query += ' filetype:pdf'
             break
