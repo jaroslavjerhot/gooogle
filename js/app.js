@@ -68,33 +68,35 @@ function setSearchTypeFromStorage() {
 // nastavi country config
 const dctCountryConfig = {
     //CZ: { hl: dctDefaultForm.shl, gl: dctDefaultForm.sGeo },
-    CZ: { lang: 'cs', hl: 'cs', gl: 'CZ', descr: 'Česko' },
-    EN: { lang: 'en', lr: 'lang_en', descr: 'Global' },
-    SK: { lang: 'sk', gl: 'SK', descr: 'Slovakia'},
-    UA: { lang: 'uk', hl: 'uk', gl: 'UA', descr: 'Ukrajina'},
-    US: { lang: 'en', hl: 'en', gl: 'US', descr: 'USA'},
-    DE: { lang: 'de', hl: 'de', gl: 'DE', descr: 'Německo'},
-    AT: { lang: 'de', hl: 'de', gl: 'AT', descr: 'Rakousko' },
-    HU: { lang: 'hu', hl: 'hu', gl: 'HU', descr: 'Maďarsko' },
-    PL: { lang: 'pl', hl: 'pl', gl: 'PL', descr: 'Polsko' },    
+    CZ: { lang: 'cs', hl: 'cs', gl: 'CZ', descr: 'Česko', 
+        mainMedia:['https://www.ctk.cz', 'https://ct24.ceskatelevize.cz', 'https://www.irozhlas.cz']},
+    EN: { lang: 'en', lr: 'lang_en', descr: 'Global', 
+        mainMedia: ['https://www.reuters.com', 'https://apnews.com', 'https://www.afp.com', 'https://www.bloomberg.com', 'https://www.bbc.com', 'https://www.aljazeera.com', 'https://www.dw.com', 'https://www3.nhk.or.jp/nhkworld', 'https://www.france24.com/en', 'https://english.news.cn', 'https://tass.com', 'https://www.aa.com.tr/en', 'https://www.ptinews.com', 'https://en.yna.co.kr']},
+    SK: { lang: 'sk', gl: 'SK', descr: 'Slovensko',
+        mainMedia:['https://www.tasr.sk', 'https://spravy.rtvs.sk']},
+    UA: { lang: 'uk', hl: 'uk', gl: 'UA', descr: 'Ukrajina', 
+        mainMedia:['https://www.ukrinform.net', 'https://www.unian.net'] },
+    US: { lang: 'en', hl: 'en', gl: 'US', descr: 'USA', 
+        mainMedia:['https://apnews.com', 'https://www.reuters.com', 'https://www.bloomberg.com']},
+    RU: { lang: 'ru', hl: 'ru', gl: 'RU', descr: 'Rusko', 
+        mainMedia:['https://tass.com', 'https://ria.ru', 'https://www.interfax.ru', 'https://meduza.io']},
+    DE: { lang: 'de', hl: 'de', gl: 'DE', descr: 'Německo', 
+        mainMedia:['https://www.dpa.com', 'https://www.dw.com']},
+    AT: { lang: 'de', hl: 'de', gl: 'AT', descr: 'Rakousko', 
+        mainMedia:['https://www.apa.at', 'https://orf.at']},
+    HU: { lang: 'hu', hl: 'hu', gl: 'HU', descr: 'Maďarsko', 
+        mainMedia:['https://hirado.hu', 'https://telex.hu'] },
+    PL: { lang: 'pl', hl: 'pl', gl: 'PL', descr: 'Polsko', 
+        mainMedia:['https://www.pap.pl', 'https://tvn24.pl'] },    
 }
 
 Object.entries(dctCountryConfig).forEach(([key, o]) => {
-  o.g =
-    (o.hl ? `&hl=${o.hl}` : '') +
-    (o.gl ? `&gl=${o.gl}` : '') +
-    (o.lr ? `&lr=${o.lr}` : '')
+    o.g =
+        (o.hl ? `&hl=${o.hl}` : '') +
+        (o.gl ? `&gl=${o.gl}` : '') +
+        (o.lr ? `&lr=${o.lr}` : '');
+    o.mainMedia = o.mainMedia ? o.mainMedia.map(site => `site:${new URL(site).hostname.replace('www.', '')}`).join(' OR ') : ''
 })
-// pridat CZ pokud neni
-// if (!(dctDefaultForm.sGeo in dctCountryConfig)){
-//     const dct = {};
-//     dct[dctDefaultForm.sGeo] = { lang: dctDefaultForm.sLang, gl: dctDefaultForm.sGeo };
-//     dctCountryConfig = {
-//         ...dct,
-//         ...dctCountryConfig
-//     }
-// }
-
 
 const currentYear = new Date().getFullYear()
 const previousYear = currentYear - 1;
@@ -217,7 +219,7 @@ async function translateText(text, lang) {
 
 function openGoogleSearch(queryText, sDevice) {
     let query = encodeURIComponent(queryText)
-    localStorage.setItem('queryInput', queryText)
+    localStorage.setItem('queryInput', queryInput.value.trim());
 
     let tbs = (lstTimePeriods[selectedYearRangeIndex].tbs ? '&tbs=' + lstTimePeriods[selectedYearRangeIndex].tbs : '')
     let cntry = dctCountryConfig[selectedCountry].g    
@@ -228,6 +230,9 @@ function openGoogleSearch(queryText, sDevice) {
         case 'nothing': query += ''
             break
         case 'excludeSocial': query = '-site:facebook.com -site:instagram.com -site:youtube.com -site:x.com -site:wikipedia.org -site:reddit.com ' + query
+            break
+        case 'mainMediaOnly': 
+            query += ' (' + dctCountryConfig[selectedCountry].mainMedia + ') '
             break
         case 'prOnly': query += ' press release'
             break
@@ -249,7 +254,7 @@ function openGoogleSearch(queryText, sDevice) {
         case 'pptOnly': query += ' filetype:ppt'
             break
     }
-    if(!['CZ','EN'].includes(selectedCountry)) {
+    if(!['CZ','EN'].includes(selectedCountry) && !query.includes(' site:')) {
         query = '-site:.cz ' + query;
         }
     
@@ -265,7 +270,13 @@ function openGoogleSearch(queryText, sDevice) {
 
         // for mobile open direct google search, for desktop create link page
     if (sDevice === 'desktop') {
-        createLinkPage(url);
+        // createLinkPage(url);
+        // location.href = url; 
+        const a = document.createElement('a');
+            a.href = url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.click();
     } else {
         window.open(url, '_blank')
     }
@@ -295,19 +306,7 @@ function parseCSV(text) {
     });
 }
 
-// async function initEventSelector() {
-//     const events = await loadEventsCSV();
-//     //const sel = document.getElementById('eventSelect');
 
-//     events.forEach(ev => {
-//         const opt = document.createElement('option');
-//         opt.value = ev.id;
-//         opt.textContent = dateToYYYY_MM(ev.start) + ' – ' + dateToYYYY_MM(ev.end) + ' | ' + (ev.title || 'undefined');
-//         opt.dataset.start = dateToUsformat(ev.start);
-//         opt.dataset.end = dateToUsformat(ev.end);
-//         eventSelect.appendChild(opt);
-//     });
-// }
 
 function dateToYYYY_MM(str) {
     // str = "31.12.2025"
