@@ -69,25 +69,29 @@ function setSearchTypeFromStorage() {
 const dctCountryConfig = {
     //CZ: { hl: dctDefaultForm.shl, gl: dctDefaultForm.sGeo },
     CZ: { lang: 'cs', hl: 'cs', gl: 'CZ', descr: 'Česko', 
-        mainMedia:['https://www.ctk.cz', 'https://ct24.ceskatelevize.cz', 'https://www.irozhlas.cz']},
+        mainMedia:['https://www.CTK.cz', 'https://CT24.CeskaTelevize.cz', 'https://www.iRozhlas.cz']},
     EN: { lang: 'en', lr: 'lang_en', descr: 'Global', 
-        mainMedia: ['https://www.reuters.com', 'https://apnews.com', 'https://www.afp.com', 'https://www.bloomberg.com', 'https://www.bbc.com', 'https://www.aljazeera.com', 'https://www.dw.com', 'https://www3.nhk.or.jp/nhkworld', 'https://www.france24.com/en', 'https://english.news.cn', 'https://tass.com', 'https://www.aa.com.tr/en', 'https://www.ptinews.com', 'https://en.yna.co.kr']},
+        mainMedia: ['https://www.Reuters.com', 'https://APNews.com', 'https://www.AFP.com',
+            'https://www.Bloomberg.com', 'https://www.BBC.com', 'https://www.AlJazeera.com', 
+            'https://www.DW.com', 'https://www3.NHK.or.jp/nhkworld', 'https://www.France24.com/en',
+             'https://English.News.cn', 'https://TASS.com', 'https://www.AA.com.tr/en', 
+             'https://www.PTINews.com', 'https://en.YNA.co.kr']},
     SK: { lang: 'sk', gl: 'SK', descr: 'Slovensko',
-        mainMedia:['https://www.tasr.sk', 'https://spravy.rtvs.sk']},
+        mainMedia:['https://www.TASR.sk', 'https://Spravy.RTVS.sk']},
     UA: { lang: 'uk', hl: 'uk', gl: 'UA', descr: 'Ukrajina', 
-        mainMedia:['https://www.ukrinform.net', 'https://www.unian.net'] },
+        mainMedia:['https://www.UkrInform.net', 'https://www.Unian.net'] },
     US: { lang: 'en', hl: 'en', gl: 'US', descr: 'USA', 
-        mainMedia:['https://apnews.com', 'https://www.reuters.com', 'https://www.bloomberg.com']},
+        mainMedia:['https://APNews.com', 'https://www.Reuters.com', 'https://www.Bloomberg.com']},
     RU: { lang: 'ru', hl: 'ru', gl: 'RU', descr: 'Rusko', 
-        mainMedia:['https://tass.com', 'https://ria.ru', 'https://www.interfax.ru', 'https://meduza.io']},
+        mainMedia:['https://TASS.com', 'https://RIA.ru', 'https://www.InterFax.ru', 'https://Meduza.io']},
     DE: { lang: 'de', hl: 'de', gl: 'DE', descr: 'Německo', 
-        mainMedia:['https://www.dpa.com', 'https://www.dw.com']},
+        mainMedia:['https://www.DPA.com', 'https://www.DW.com']},
     AT: { lang: 'de', hl: 'de', gl: 'AT', descr: 'Rakousko', 
-        mainMedia:['https://www.apa.at', 'https://orf.at']},
+        mainMedia:['https://www.APA.at', 'https://ORF.at']},
     HU: { lang: 'hu', hl: 'hu', gl: 'HU', descr: 'Maďarsko', 
-        mainMedia:['https://hirado.hu', 'https://telex.hu'] },
+        mainMedia:['https://Hirado.hu', 'https://Telex.hu'] },
     PL: { lang: 'pl', hl: 'pl', gl: 'PL', descr: 'Polsko', 
-        mainMedia:['https://www.pap.pl', 'https://tvn24.pl'] },    
+        mainMedia:['https://www.PAP.pl', 'https://TVN24.pl'] },    
 }
 
 Object.entries(dctCountryConfig).forEach(([key, o]) => {
@@ -95,7 +99,9 @@ Object.entries(dctCountryConfig).forEach(([key, o]) => {
         (o.hl ? `&hl=${o.hl}` : '') +
         (o.gl ? `&gl=${o.gl}` : '') +
         (o.lr ? `&lr=${o.lr}` : '');
-    o.mainMedia = o.mainMedia ? o.mainMedia.map(site => `site:${new URL(site).hostname.replace('www.', '')}`).join(' OR ') : ''
+        o.MainMediaDescr = o.mainMedia ? o.mainMedia.join(', '): ''
+        o.MainMediaDescr = o.MainMediaDescr.replace(/https?:\/\/(www\.)?/g, '').replace(/\/+/g, ', ')
+        o.mainMedia = o.mainMedia ? o.mainMedia.map(site => `site:${new URL(site).hostname.replace('www.', '')}`).join(' OR ') : ''
 })
 
 const currentYear = new Date().getFullYear()
@@ -115,7 +121,8 @@ for (let y = currentYear; y > currentYear - 10; y--) {
 
 let selectedCountry = localStorage.getItem('lastCountry') || 'CZ'
 let selectedYearRangeIndex = localStorage.getItem('lastYearIndex') ? Number(localStorage.getItem('lastYearIndex')) : 2 // default last = currentYear
-
+document.getElementById("mainMediaDescr").innerText = dctCountryConfig[selectedCountry].MainMediaDescr;
+    
 
 
 
@@ -159,7 +166,9 @@ function setCountry(btn, country) {
     btn.classList.add('active')
     selectedCountry = country
     localStorage.setItem('lastCountry', selectedCountry)
+    localStorage.setItem('mainMediaDescr', dctCountryConfig[selectedCountry].MainMediaDescr);
     document.title = 'a: ' + queryInput.value.trim();
+    document.getElementById("mainMediaDescr").innerText = dctCountryConfig[selectedCountry].MainMediaDescr;
     //runSearch()
 }
 
@@ -196,7 +205,7 @@ async function runSearch(sDevice = 'desktop') {
         try {
             const translated = await translateText(text, lang);
             // Prompt the user to edit/confirm the search query
-            let finalText = prompt("Modify the translated text if needed:", translated);
+            let finalText = prompt("Uprav přeložený text, pokud je třeba:", translated);
             if (!finalText) return;
             dctTrans[lang] = finalText;
             openGoogleSearch(finalText, sDevice)
@@ -276,7 +285,12 @@ function openGoogleSearch(queryText, sDevice) {
             a.href = url;
             a.target = '_blank';
             a.rel = 'noopener noreferrer';
-            a.click();
+            //a.click();
+
+            document.body.appendChild(a);
+            a.click();                    // 👈 Safari allows this
+            a.remove();
+
     } else {
         window.open(url, '_blank')
     }
