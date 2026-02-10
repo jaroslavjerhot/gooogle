@@ -15,7 +15,7 @@ btnTime;btn;last_y;posl. rok;;google;;;;;;;;qdr:y;;;;;;
 btnTime;btn;last_3y;posl. 3roky;;google;;;;;;;;cdr:1,cd_min:1/1/currentYear-3;;;;;;
 btnTime;btn;addTime;+;;;;;;;;;;;;;;add;;
 btnTime;btn;removeTime;-;;;;;;;;;;;;;;remove;;
-btnTime;btn;allMedia;vše;;google;;;;;;;;;;;;;;
+btnMedia;btn;allMedia;vše;;google;;;;;;;;;;;;;;
 btnMedia;btn;main;hlavní;;google;;Hledá se na: #mediaList;;;;;;;;;;;x;
 btnMedia;btn;arch;arch;;google;;Hledá se na: #mediaList;;;;;;;;;;;x;
 btnMedia;btn;excludeSocial;bez soc.;;google;;Bez: ;;facebook.com, instagram.com, youtube.com, x.com, wikipedia.org, reddit.com;;;;;;;;;;
