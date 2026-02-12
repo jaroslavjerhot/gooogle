@@ -1,190 +1,190 @@
-﻿sCountry;sGl;sLr
-Afghánistán;AF;fa
-Albánie;AL;sq
-Alžírsko;DZ;ar
-Andorra;AD;ca
-Angola;AO;pt
-Antigua a Barbuda;AG;en
-Argentina;AR;es
-Arménie;AM;hy
-Austrálie;AU;en
-Ázerbájdžán;AZ;az
-Bahamy;BS;en
-Bahrajn;BH;ar
-Bangladéš;BD;bn
-Barbados;BB;en
-Belgie;BE;nl
-Belize;BZ;en
-Bělorusko;BY;ru
-Benin;BJ;fr
-Bhútán;BT;dz
-Bolívie;BO;es
-Bosna a Hercegovina;BA;bs
-Botswana;BW;en
-Brazílie;BR;pt
-Brunej;BRN;ms
-Bulharsko;BG;bg
-Burkina Faso;BF;fr
-Burundi;BI;fr
-Cookovy ostrovy;CK;en
-Čad;TD;fr
-Černá Hora;ME;sr
-Česko;CZ;cs
-Čína;CN;zh-CN
-Dánsko;DK;da
-Dominika;DM;en
-Dominikánská republika;DO;es
-Egypt;EG;ar
-Ekvádor;EC;es
-Eritrea;ER;ti
-Estonsko;EE;et
-Etiopie;ET;am
-Fidži;FJ;en
-Filipíny;PH;en
-Finsko;FI;fi
-Francie;FR;fr
-Gabon;GA;fr
-Gambie;GM;en
-Ghana;GH;en
-Grenada;GD;en
-Grónsko;GL;da
-Guatemala;GT;es
-Guinea;GN;fr
-Guinea-Bissau;GW;pt
-Guyana;GY;en
-Haiti;HT;fr
-Honduras;HN;es
-Chile;CL;es
-Chorvatsko;HR;hr
-Indie;IN;en
-Indonésie;ID;id
-Irák;IQ;ar
-Írán;IR;fa
-Irsko;IE;en
-Island;IS;is
-Itálie;IT;it
-Jamajka;JM;en
-Japonsko;JP;ja
-Jemen;YE;ar
-Jižní Korea;KR;ko
-Jižní Súdán;SS;en
-Jordánsko;JO;ar
-Kajmanské ostrovy;KY;en
-Kambodža;KH;km
-Kamerun;CM;fr
-Kanada;CA;en
-Kapverdy;CV;pt
-Kazachstán;KZ;ru
-Keňa;KE;en
-Kirgizstán;KG;ky
-Kiribati;KI;en
-Kolumbie;CO;es
-Komory;KM;fr
-Kostarika;CR;es
-Kuba;cu;es
-Kuvajt;KW;ar
-Kypr;CY;el
-Laos;LA;lo
-Lesotho;LS;en
-Libanon;LB;ar
-Libérie;LR;en
-Libye;LY;ar
-Lichtenštejnsko;LI;de
-Litva;LT;lt
-Lotyšsko;LV;lv
-Lucembursko;LU;fr
-Madagaskar;MG;fr
-Malajsie;MY;en
-Malawi;MW;en
-Maledivy;MV;dv
-Mali;ML;fr
-Malta;MT;en
-Maroko;MA;ar
-Marshallovy ostrovy;MH;en
-Mauricius;MU;en
-Mauritánie;MR;ar
-Mexiko;MX;es
-Mikronésie;FM;en
-Moldavsko;MD;ro
-Monako;MC;fr
-Mongolsko;MN;mn
-Mosambik;MZ;pt
-Myanmar;MM;my
-Namibie;NA;en
-Nauru;NR;en
-Nepál;NP;ne
-Niger;NE;fr
-Nigérie;NG;en
-Nikaragua;NI;es
-Nizozemsko;NL;nl
-Norsko;NO;no
-Nový Zéland;NZ;en
-Omán;OM;ar
-Pákistán;PK;ur
-Palau;PW;en
-Panama;PA;es
-Papua-Nová Guinea;PG;en
-Paraguay;PY;es
-Peru;PE;es
-Pobřeží slonoviny;CI;fr
-Polsko;PL;pl
-Portugalsko;PT;pt
-Rakousko;AT;de
-Rumunsko;RO;ro
-Rusko;RU;ru
-Rwanda;RW;en
-Řecko;GR;el
-Saint Kitts a Nevis;KN;en
-Saint Lucia;LC;en
-Saint Vincent a Grenadiny;VC;en
-Salvador;SV;es
-Samoa;WS;en
-San Marino;SM;it
-Saúdská Arábie;SA;ar
-Senegal;SN;fr
-Severní Korea;KP;ko
-Severní Makedonie;MK;mk
-Seychely;SC;en
-Sierra Leone;SL;en
-Singapur;SG;en
-Slovensko;SK;sk
-Slovinsko;SI;sl
-Somálsko;SO;so
-Spojené arabské emiráty;AE;ar
-Srbsko;RS;sr
-Srí Lanka;LK;si
-Středoafrická republika;CF;fr
-Súdán;SD;ar
-Surinam;SR;nl
-Svazijsko;SZ;en
-Sýrie;SY;ar
-Šalamounovy ostrovy;SB;en
-Španělsko;ES;es
-Švédsko;SE;sv
-Švýcarsko;CH;de
-Tádžikistán;TJ;tg
-Tanzanie;TZ;en
-Thajsko;TH;th
-Togo;TG;fr
-Tonga;TO;en
-Trinidad a Tobago;TT;en
-Tunisko;TN;ar
-Turecko;TR;tr
-Turkmenistán;TM;tk
-Tuvalu;TV;en
-Uganda;UG;en
-Ukrajina;UA;uk
-Uruguay;UY;es
-USA;US;en
-Uzbekistán;UZ;uz
-Vanuatu;VU;en
-Vatikán;VA;it
-Velká Británie;UK;en
-Venezuela;VE;es
-Vietnam;VN;vi
-Východní Timor;TL;pt
-Zambie;ZM;en
-Zimbabwe;ZW;en
-Horní Lužice;;hsb
-Dolní Lužice;;dsb
-Češi v zahraničí;;cs
+﻿sLxdName;sElement;sId;sLabel;sParamGl;sParamLr
+btnCountry;btn;AF;Afghánistán;AF;fa
+btnCountry;btn;AL;Albánie;AL;sq
+btnCountry;btn;DZ;Alžírsko;DZ;ar
+btnCountry;btn;AD;Andorra;AD;ca
+btnCountry;btn;AO;Angola;AO;pt
+btnCountry;btn;AG;Antigua a Barbuda;AG;en
+btnCountry;btn;AR;Argentina;AR;es
+btnCountry;btn;AM;Arménie;AM;hy
+btnCountry;btn;AU;Austrálie;AU;en
+btnCountry;btn;AZ;Ázerbájdžán;AZ;az
+btnCountry;btn;BS;Bahamy;BS;en
+btnCountry;btn;BH;Bahrajn;BH;ar
+btnCountry;btn;BD;Bangladéš;BD;bn
+btnCountry;btn;BB;Barbados;BB;en
+btnCountry;btn;BE;Belgie;BE;nl
+btnCountry;btn;BZ;Belize;BZ;en
+btnCountry;btn;BY;Bělorusko;BY;ru
+btnCountry;btn;BJ;Benin;BJ;fr
+btnCountry;btn;BT;Bhútán;BT;dz
+btnCountry;btn;BO;Bolívie;BO;es
+btnCountry;btn;BA;Bosna a Hercegovina;BA;bs
+btnCountry;btn;BW;Botswana;BW;en
+btnCountry;btn;BR;Brazílie;BR;pt
+btnCountry;btn;BRN;Brunej;BRN;ms
+btnCountry;btn;BG;Bulharsko;BG;bg
+btnCountry;btn;BF;Burkina Faso;BF;fr
+btnCountry;btn;BI;Burundi;BI;fr
+btnCountry;btn;CK;Cookovy ostrovy;CK;en
+btnCountry;btn;TD;Čad;TD;fr
+btnCountry;btn;ME;Černá Hora;ME;sr
+btnCountry;btn;CZ;Česko;CZ;cs
+btnCountry;btn;CN;Čína;CN;zh-CN
+btnCountry;btn;DK;Dánsko;DK;da
+btnCountry;btn;DM;Dominika;DM;en
+btnCountry;btn;DO;Dominikánská republika;DO;es
+btnCountry;btn;EG;Egypt;EG;ar
+btnCountry;btn;EC;Ekvádor;EC;es
+btnCountry;btn;ER;Eritrea;ER;ti
+btnCountry;btn;EE;Estonsko;EE;et
+btnCountry;btn;ET;Etiopie;ET;am
+btnCountry;btn;FJ;Fidži;FJ;en
+btnCountry;btn;PH;Filipíny;PH;en
+btnCountry;btn;FI;Finsko;FI;fi
+btnCountry;btn;FR;Francie;FR;fr
+btnCountry;btn;GA;Gabon;GA;fr
+btnCountry;btn;GM;Gambie;GM;en
+btnCountry;btn;GH;Ghana;GH;en
+btnCountry;btn;GD;Grenada;GD;en
+btnCountry;btn;GL;Grónsko;GL;da
+btnCountry;btn;GT;Guatemala;GT;es
+btnCountry;btn;GN;Guinea;GN;fr
+btnCountry;btn;GW;Guinea-Bissau;GW;pt
+btnCountry;btn;GY;Guyana;GY;en
+btnCountry;btn;HT;Haiti;HT;fr
+btnCountry;btn;HN;Honduras;HN;es
+btnCountry;btn;CL;Chile;CL;es
+btnCountry;btn;HR;Chorvatsko;HR;hr
+btnCountry;btn;IN;Indie;IN;en
+btnCountry;btn;ID;Indonésie;ID;id
+btnCountry;btn;IQ;Irák;IQ;ar
+btnCountry;btn;IR;Írán;IR;fa
+btnCountry;btn;IE;Irsko;IE;en
+btnCountry;btn;IS;Island;IS;is
+btnCountry;btn;IT;Itálie;IT;it
+btnCountry;btn;JM;Jamajka;JM;en
+btnCountry;btn;JP;Japonsko;JP;ja
+btnCountry;btn;YE;Jemen;YE;ar
+btnCountry;btn;KR;Jižní Korea;KR;ko
+btnCountry;btn;SS;Jižní Súdán;SS;en
+btnCountry;btn;JO;Jordánsko;JO;ar
+btnCountry;btn;KY;Kajmanské ostrovy;KY;en
+btnCountry;btn;KH;Kambodža;KH;km
+btnCountry;btn;CM;Kamerun;CM;fr
+btnCountry;btn;CA;Kanada;CA;en
+btnCountry;btn;CV;Kapverdy;CV;pt
+btnCountry;btn;KZ;Kazachstán;KZ;ru
+btnCountry;btn;KE;Keňa;KE;en
+btnCountry;btn;KG;Kirgizstán;KG;ky
+btnCountry;btn;KI;Kiribati;KI;en
+btnCountry;btn;CO;Kolumbie;CO;es
+btnCountry;btn;KM;Komory;KM;fr
+btnCountry;btn;CR;Kostarika;CR;es
+btnCountry;btn;cu;Kuba;cu;es
+btnCountry;btn;KW;Kuvajt;KW;ar
+btnCountry;btn;CY;Kypr;CY;el
+btnCountry;btn;LA;Laos;LA;lo
+btnCountry;btn;LS;Lesotho;LS;en
+btnCountry;btn;LB;Libanon;LB;ar
+btnCountry;btn;LR;Libérie;LR;en
+btnCountry;btn;LY;Libye;LY;ar
+btnCountry;btn;LI;Lichtenštejnsko;LI;de
+btnCountry;btn;LT;Litva;LT;lt
+btnCountry;btn;LV;Lotyšsko;LV;lv
+btnCountry;btn;LU;Lucembursko;LU;fr
+btnCountry;btn;MG;Madagaskar;MG;fr
+btnCountry;btn;MY;Malajsie;MY;en
+btnCountry;btn;MW;Malawi;MW;en
+btnCountry;btn;MV;Maledivy;MV;dv
+btnCountry;btn;ML;Mali;ML;fr
+btnCountry;btn;MT;Malta;MT;en
+btnCountry;btn;MA;Maroko;MA;ar
+btnCountry;btn;MH;Marshallovy ostrovy;MH;en
+btnCountry;btn;MU;Mauricius;MU;en
+btnCountry;btn;MR;Mauritánie;MR;ar
+btnCountry;btn;MX;Mexiko;MX;es
+btnCountry;btn;FM;Mikronésie;FM;en
+btnCountry;btn;MD;Moldavsko;MD;ro
+btnCountry;btn;MC;Monako;MC;fr
+btnCountry;btn;MN;Mongolsko;MN;mn
+btnCountry;btn;MZ;Mosambik;MZ;pt
+btnCountry;btn;MM;Myanmar;MM;my
+btnCountry;btn;NA;Namibie;NA;en
+btnCountry;btn;NR;Nauru;NR;en
+btnCountry;btn;NP;Nepál;NP;ne
+btnCountry;btn;NE;Niger;NE;fr
+btnCountry;btn;NG;Nigérie;NG;en
+btnCountry;btn;NI;Nikaragua;NI;es
+btnCountry;btn;NL;Nizozemsko;NL;nl
+btnCountry;btn;NO;Norsko;NO;no
+btnCountry;btn;NZ;Nový Zéland;NZ;en
+btnCountry;btn;OM;Omán;OM;ar
+btnCountry;btn;PK;Pákistán;PK;ur
+btnCountry;btn;PW;Palau;PW;en
+btnCountry;btn;PA;Panama;PA;es
+btnCountry;btn;PG;Papua-Nová Guinea;PG;en
+btnCountry;btn;PY;Paraguay;PY;es
+btnCountry;btn;PE;Peru;PE;es
+btnCountry;btn;CI;Pobřeží slonoviny;CI;fr
+btnCountry;btn;PL;Polsko;PL;pl
+btnCountry;btn;PT;Portugalsko;PT;pt
+btnCountry;btn;AT;Rakousko;AT;de
+btnCountry;btn;RO;Rumunsko;RO;ro
+btnCountry;btn;RU;Rusko;RU;ru
+btnCountry;btn;RW;Rwanda;RW;en
+btnCountry;btn;GR;Řecko;GR;el
+btnCountry;btn;KN;Saint Kitts a Nevis;KN;en
+btnCountry;btn;LC;Saint Lucia;LC;en
+btnCountry;btn;VC;Saint Vincent a Grenadiny;VC;en
+btnCountry;btn;SV;Salvador;SV;es
+btnCountry;btn;WS;Samoa;WS;en
+btnCountry;btn;SM;San Marino;SM;it
+btnCountry;btn;SA;Saúdská Arábie;SA;ar
+btnCountry;btn;SN;Senegal;SN;fr
+btnCountry;btn;KP;Severní Korea;KP;ko
+btnCountry;btn;MK;Severní Makedonie;MK;mk
+btnCountry;btn;SC;Seychely;SC;en
+btnCountry;btn;SL;Sierra Leone;SL;en
+btnCountry;btn;SG;Singapur;SG;en
+btnCountry;btn;SK;Slovensko;SK;sk
+btnCountry;btn;SI;Slovinsko;SI;sl
+btnCountry;btn;SO;Somálsko;SO;so
+btnCountry;btn;AE;Spojené arabské emiráty;AE;ar
+btnCountry;btn;RS;Srbsko;RS;sr
+btnCountry;btn;LK;Srí Lanka;LK;si
+btnCountry;btn;CF;Středoafrická republika;CF;fr
+btnCountry;btn;SD;Súdán;SD;ar
+btnCountry;btn;SR;Surinam;SR;nl
+btnCountry;btn;SZ;Svazijsko;SZ;en
+btnCountry;btn;SY;Sýrie;SY;ar
+btnCountry;btn;SB;Šalamounovy ostrovy;SB;en
+btnCountry;btn;ES;Španělsko;ES;es
+btnCountry;btn;SE;Švédsko;SE;sv
+btnCountry;btn;CH;Švýcarsko;CH;de
+btnCountry;btn;TJ;Tádžikistán;TJ;tg
+btnCountry;btn;TZ;Tanzanie;TZ;en
+btnCountry;btn;TH;Thajsko;TH;th
+btnCountry;btn;TG;Togo;TG;fr
+btnCountry;btn;TO;Tonga;TO;en
+btnCountry;btn;TT;Trinidad a Tobago;TT;en
+btnCountry;btn;TN;Tunisko;TN;ar
+btnCountry;btn;TR;Turecko;TR;tr
+btnCountry;btn;TM;Turkmenistán;TM;tk
+btnCountry;btn;TV;Tuvalu;TV;en
+btnCountry;btn;UG;Uganda;UG;en
+btnCountry;btn;UA;Ukrajina;UA;uk
+btnCountry;btn;UY;Uruguay;UY;es
+btnCountry;btn;US;USA;US;en
+btnCountry;btn;UZ;Uzbekistán;UZ;uz
+btnCountry;btn;VU;Vanuatu;VU;en
+btnCountry;btn;VA;Vatikán;VA;it
+btnCountry;btn;UK;Velká Británie;UK;en
+btnCountry;btn;VE;Venezuela;VE;es
+btnCountry;btn;VN;Vietnam;VN;vi
+btnCountry;btn;TL;Východní Timor;TL;pt
+btnCountry;btn;ZM;Zambie;ZM;en
+btnCountry;btn;ZW;Zimbabwe;ZW;en
+btnCountry;btn;HL;Horní Lužice;HL;hsb
+btnCountry;btn;DL;Dolní Lužice;DL;dsb
+btnCountry;btn;CX;Češi v zahraničí;CX;cs
